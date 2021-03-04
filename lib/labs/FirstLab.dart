@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:flutter_knob/flutter_knob.dart';
 
 class FirstLabs extends StatelessWidget {
   @override
@@ -62,6 +63,10 @@ class MyForm extends State {
   final _formKey = GlobalKey<FormState>();
   GenderList _gender;
   bool _agreement = false;
+  double _value = 0;
+  void _setValue(double value) => setState(() => _value = value);
+  static const double minValue = 0;
+  static const double maxValue = 100;
 
   @override
   Widget build(BuildContext context) {
@@ -161,12 +166,12 @@ class MyForm extends State {
                                     radiusFactor: 1,
                                     pointers: <GaugePointer>[
                                       RangePointer(
-                                          value: 20,
+                                          value: _value,
                                           width: 0.2,
                                           sizeUnit: GaugeSizeUnit.factor,
                                           color: Color(0XFF6A1B9A)),
                                       MarkerPointer(
-                                        value: 18,
+                                        value: _value - 2,
                                         color: Colors.white,
                                         markerHeight: 5,
                                         markerWidth: 5,
@@ -177,9 +182,9 @@ class MyForm extends State {
                                       GaugeAnnotation(
                                           widget: Row(
                                             mainAxisSize: MainAxisSize.min,
-                                            children: const <Widget>[
+                                            children: <Widget>[
                                               Text(
-                                                '20',
+                                                '${_value.toStringAsFixed(0)}', // 'Value: ${_value.toStringAsFixed(3)}',
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     fontFamily: 'Times',
@@ -201,6 +206,11 @@ class MyForm extends State {
                                     ])
                               ]),
                             ),
+                            Slider(
+                                value: _value,
+                                onChanged: _setValue,
+                                min: minValue,
+                                max: maxValue),
                           ],
                         ),
                       ),
