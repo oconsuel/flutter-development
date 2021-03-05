@@ -11,7 +11,7 @@ ThemeData basicTheme() => ThemeData(
           color: Colors.purple,
         ),
         bodyText1: TextStyle(
-          fontFamily: FontNameDefault,
+          fontFamily: 'Roboto',
           fontSize: BodyTextSize,
           color: Colors.green,
         ),

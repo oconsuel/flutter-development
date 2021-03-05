@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lab_1/utils/themes.dart';
-import 'package:lab_1/labs/SecondLab/splash_screen.dart';
+import 'package:lab_1/labs/SecondLab/home_screen.dart';
+import 'package:lab_1/labs/SecondLab/camera.dart';
 
 class SecondLabs extends StatelessWidget {
   @override
@@ -37,7 +38,7 @@ class _SelectAStatusState extends State<SelectAStatus> {
   }
 }
 
-enum Status { checkvideo, checkcamera }
+enum Status { stayhere, checkvideo, checkcamera }
 
 class SelectStatusWidget extends StatefulWidget {
   SelectStatusWidget({Key key}) : super(key: key);
@@ -49,7 +50,7 @@ class SelectStatusWidget extends StatefulWidget {
 bool navigateToPage = false;
 
 class _SelectStatusWidgetState extends State<SelectStatusWidget> {
-  Status _status = Status.checkvideo;
+  Status _status = Status.stayhere;
   final TextEditingController _StatusOthersController =
       new TextEditingController();
 
@@ -57,6 +58,22 @@ class _SelectStatusWidgetState extends State<SelectStatusWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        RadioListTile<Status>(
+          title: const Text('Остаться здесь'),
+          value: Status.stayhere,
+          groupValue: _status,
+          onChanged: (value) {
+            setState(() {
+              navigateToPage = true;
+            });
+
+            if (navigateToPage) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return MyApp2();
+              }));
+            }
+          },
+        ),
         RadioListTile<Status>(
           title: const Text('Просмотр видео'),
           value: Status.checkvideo,
@@ -99,7 +116,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: basicTheme(),
-      home: Splash(),
+      home: VideoPlayer(),
     );
   }
 }
@@ -110,7 +127,7 @@ class MyApp2 extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: basicTheme(),
-      home: Splash(),
+      home: CameraApp(),
     );
   }
 }

@@ -206,11 +206,27 @@ class MyForm extends State {
                                     ])
                               ]),
                             ),
-                            Slider(
-                                value: _value,
-                                onChanged: _setValue,
-                                min: minValue,
-                                max: maxValue),
+                            SliderTheme(
+                                data: SliderTheme.of(context).copyWith(
+                                  valueIndicatorColor: Colors
+                                      .blue, // This is what you are asking for
+                                  inactiveTrackColor:
+                                      Colors.grey, // Custom Gray Color
+                                  activeTrackColor: Colors.purple,
+                                  thumbColor: Colors.white,
+                                  overlayColor: Color(
+                                      0x29EB1555), // Custom Thumb overlay Color
+                                  thumbShape: RoundSliderThumbShape(
+                                      enabledThumbRadius: 10.0),
+                                  overlayShape: RoundSliderOverlayShape(
+                                      overlayRadius: 15.0),
+                                ),
+                                child: Slider(
+                                  value: _value,
+                                  onChanged: _setValue,
+                                  min: minValue,
+                                  max: maxValue,
+                                )),
                           ],
                         ),
                       ),
