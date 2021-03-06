@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-import 'package:flutter_knob/flutter_knob.dart';
 
 class FirstLabs extends StatelessWidget {
   @override
