@@ -63,7 +63,7 @@ class ScreenWidget extends StatelessWidget {
           //   ],
           // ),
           body: TabBarView(
-            children: <Widget>[FirstLabs(), SecondLabs(), ThirdLabs()],
+            children: <Widget>[FirstLabs(), SecondLabs(), TestHttp()],
           ),
         ),
       ),
