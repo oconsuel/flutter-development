@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 
 class TestHttp extends StatefulWidget {
@@ -57,6 +58,17 @@ class TestHttpState extends State<TestHttp> {
     }
   } //_sendRequestPost
 
+  _sendRequestGetTemp() async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+
+      try {
+        var response = await http.post(_url);
+        var document = parse(response.body);
+        print(document.getElementsByTagName("p").length);
+      } catch (error) {}
+    }
+  }
   //_sendRequestPost
 
   Widget build(BuildContext context) {
@@ -84,7 +96,7 @@ class TestHttpState extends State<TestHttp> {
             SizedBox(height: 20.0),
             RaisedButton(
               child: Text('Send request GET'),
-              onPressed: _sendRequestGet,
+              onPressed: _sendRequestGetTemp,
               color: Colors.deepPurple[800],
               textColor: Colors.white,
               shape: RoundedRectangleBorder(
@@ -92,6 +104,14 @@ class TestHttpState extends State<TestHttp> {
             ),
             RaisedButton(
               child: Text('Send request POST'),
+              onPressed: _sendRequestPost,
+              color: Colors.deepPurple[800],
+              textColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(80))),
+            ),
+            RaisedButton(
+              child: Text('Send request TEMP'),
               onPressed: _sendRequestPost,
               color: Colors.deepPurple[800],
               textColor: Colors.white,

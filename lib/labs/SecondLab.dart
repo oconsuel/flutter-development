@@ -8,6 +8,7 @@ class SecondLabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: basicTheme(),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
@@ -69,7 +70,7 @@ class _SelectStatusWidgetState extends State<SelectStatusWidget> {
 
             if (navigateToPage) {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return MyApp2();
+                return SecondLabs();
               }));
             }
           },
@@ -131,3 +132,5 @@ class MyApp2 extends StatelessWidget {
     );
   }
 }
+
+//
