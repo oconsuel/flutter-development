@@ -15,18 +15,18 @@ class VideoPlayer extends StatelessWidget {
             looping: true,
             autoplay: true,
           ),
-          VideoItems(
-            videoPlayerController: VideoPlayerController.network(
-              "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-            ),
-            autoplay: false,
-          ),
-          VideoItems(
-            videoPlayerController: VideoPlayerController.network(
-                "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"),
-            looping: false,
-            autoplay: false,
-          ),
+          // VideoItems(
+          //   videoPlayerController: VideoPlayerController.network(
+          //     "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
+          //   ),
+          //   autoplay: false,
+          // ),
+          // VideoItems(
+          //   videoPlayerController: VideoPlayerController.network(
+          //       "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"),
+          //   looping: false,
+          //   autoplay: false,
+          // ),
         ],
       ),
     );
@@ -57,7 +57,6 @@ class _VideoItemsState extends State<VideoItems> {
     super.initState();
     _chewieController = ChewieController(
       videoPlayerController: widget.videoPlayerController,
-      aspectRatio: 5 / 8,
       autoInitialize: true,
       autoPlay: widget.autoplay,
       looping: widget.looping,
@@ -80,9 +79,11 @@ class _VideoItemsState extends State<VideoItems> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
       child: Container(
+        alignment: Alignment(1, 1),
         padding: const EdgeInsets.all(8.0),
+        height: 400,
         child: Chewie(
           controller: _chewieController,
         ),

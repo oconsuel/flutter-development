@@ -87,6 +87,7 @@ class _CameraScreenState extends State {
                     children: <Widget>[
                       _cameraToggleRowWidget(),
                       _cameraControlWidget(context),
+                      Spacer(),
                     ],
                   ),
                 ),
