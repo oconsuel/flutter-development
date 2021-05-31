@@ -41,13 +41,11 @@ class FFButtonWidget extends StatelessWidget {
     Key key,
     @required this.text,
     @required this.onPressed,
-    this.icon,
     this.iconData,
     @required this.options,
   }) : super(key: key);
 
   final String text;
-  final Widget icon;
   final IconData iconData;
   final VoidCallback onPressed;
   final FFButtonOptions options;
@@ -59,19 +57,18 @@ class FFButtonWidget extends StatelessWidget {
       style: options.textStyle,
       maxLines: 1,
     );
-    if (icon != null || iconData != null) {
+    if (iconData != null) {
       return Container(
         height: options.height,
         width: options.width,
         child: RaisedButton.icon(
           icon: Padding(
             padding: options.iconPadding ?? EdgeInsets.zero,
-            child: icon ??
-                FaIcon(
-                  iconData,
-                  size: options.iconSize,
-                  color: options.iconColor ?? options.textStyle.color,
-                ),
+            child: FaIcon(
+              iconData,
+              size: options.iconSize,
+              color: options.iconColor ?? options.textStyle.color,
+            ),
           ),
           label: textWidget,
           onPressed: onPressed,

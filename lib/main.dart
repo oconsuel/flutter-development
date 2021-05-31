@@ -30,7 +30,6 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'test-project',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: initialUser == null
@@ -39,7 +38,9 @@ class _MyAppState extends State<MyApp> {
                 valueColor: AlwaysStoppedAnimation<Color>(Color(0xff4b39ef)),
               ),
             )
-          : MainWidget(),
+          : currentUser.loggedIn
+              ? HomePageWidget()
+              : MainWidget(),
     );
   }
 }

@@ -37,7 +37,7 @@ Future resetPassword({String email, BuildContext context}) async {
     return null;
   }
   ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('Password reset email sent!')),
+    SnackBar(content: Text('Password reset email sent!')),
   );
 }
 
