@@ -225,9 +225,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             ),
                                           );
                                         },
-                                        text: 'Get contacts!',
+                                        text: 'К контактам',
                                         options: FFButtonOptions(
-                                          width: 130,
+                                          width: 150,
                                           height: 40,
                                           color: FlutterFlowTheme.primaryColor,
                                           textStyle: FlutterFlowTheme.subtitle2
@@ -379,7 +379,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         fontSize: 16,
                                       ),
                                     ),
-                                  )
+                                  ),
+                                  // Padding(
+                                  //   padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                  //   child: Text(
+                                  //     'The decryption has been completed successfully. \n\n Decrypted file 2: $decFilepath \n\n File content: ' +
+                                  //         File(decFilepath).readAsStringSync(),
+                                  //     style:
+                                  //         FlutterFlowTheme.bodyText1.override(
+                                  //       fontFamily: 'Poppins',
+                                  //       color: Colors.white,
+                                  //       fontSize: 16,
+                                  //     ),
+                                  //   ),
+                                  // )
                                 ],
                               ),
                               Column(
@@ -562,14 +575,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       print('The decryption has been completed successfully.');
       print('Decrypted file 2: $decFilepath');
       print('File content: ' + File(decFilepath).readAsStringSync());
+
       setState(() {
         i = (1) % data.length;
       });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Результат расшифровки файла $decFilepath : ' +
+            File(decFilepath).readAsStringSync()),
+        duration: Duration(seconds: 10),
+      ));
     } on AesCryptException catch (e) {
       if (e.type == AesCryptExceptionType.destFileExists) {
         print('The decryption has been completed unsuccessfully.');
         print(e.message);
       }
     }
+    Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text(
+            'The decryption has been completed successfully. \n\n Decrypted file 2: $decFilepath \n\n File content: ' +
+                File(decFilepath).readAsStringSync())));
   }
 }
