@@ -10,11 +10,15 @@ Future<User> signInWithGoogle(BuildContext context) async {
   final signInFunc = () async {
     await signOutWithGoogle().catchError((_) => null);
     final auth = await (await _googleSignIn.signIn())?.authentication;
+
     if (auth == null) {
       return null;
     }
     final credential = GoogleAuthProvider.credential(
-        idToken: auth.idToken, accessToken: auth.accessToken);
+      idToken: auth.idToken,
+      accessToken: auth.accessToken,
+    );
+
     return FirebaseAuth.instance.signInWithCredential(credential);
   };
   return signInOrCreateAccount(context, signInFunc);

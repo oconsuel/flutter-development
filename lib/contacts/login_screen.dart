@@ -106,6 +106,10 @@ class _LoginScreenState extends State<LoginScreen> {
       itemBuilder: (context, index) {
         final currentContact = contacts.connections[index];
         return ListTile(
+          trailing: Icon(
+            Icons.account_circle_outlined,
+            color: Color(0xFF553BBA),
+          ),
           title: Text(
             "${currentContact.names.first.displayName}",
             style: FlutterFlowTheme.bodyText1.override(

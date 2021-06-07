@@ -1,4 +1,5 @@
 // import 'package:test_project/8_lab/8_lab.dart';
+import 'package:test_project/JWT/main.dart';
 import 'package:test_project/chat/chat.dart';
 import 'package:test_project/contacts/contacts.dart';
 import 'package:test_project/contacts/login_screen.dart';
@@ -44,7 +45,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   Widget build(BuildContext context) {
     int pageIndex = 0;
     List<Widget> pageList = <Widget>[
-      MyApp1(),
+      Lab07(),
       MyApp2(),
     ];
     return Scaffold(
@@ -408,11 +409,49 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           await Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => MyApp1(),
+                                              builder: (context) => Lab07(),
                                             ),
                                           );
                                         },
                                         text: 'Go chat!',
+                                        options: FFButtonOptions(
+                                          width: 130,
+                                          height: 40,
+                                          color: FlutterFlowTheme.primaryColor,
+                                          textStyle: FlutterFlowTheme.subtitle2
+                                              .override(
+                                            fontFamily: 'Poppins',
+                                            color: Colors.white,
+                                          ),
+                                          borderSide: BorderSide(
+                                            color: Color(0xFF553BBA),
+                                            width: 1,
+                                          ),
+                                          borderRadius: 12,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      FFButtonWidget(
+                                        onPressed: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MyApp5(),
+                                            ),
+                                          );
+                                        },
+                                        text: 'Go JWT!',
                                         options: FFButtonOptions(
                                           width: 130,
                                           height: 40,
