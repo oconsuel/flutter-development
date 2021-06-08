@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:bubble/bubble.dart';
 
@@ -50,6 +49,12 @@ class _Lab07State extends State<Lab07> {
             ElevatedButton(
               child: Text('Войти'),
               onPressed: _createUser,
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF272727), // background
+                onPrimary: Colors.white,
+
+                // foreground
+              ),
             ),
           ],
         ),
@@ -165,7 +170,10 @@ class MessageItem extends StatelessWidget {
       // color: message.author.color,
       elevation: 1 * px,
       margin: BubbleEdges.only(bottom: 15.0),
-      child: Text(message.body),
+      child: Text(
+        message.body,
+        style: TextStyle(fontSize: 20),
+      ),
     );
     //   ],
     // );

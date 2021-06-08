@@ -1,5 +1,7 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:test_project/JWT/model.dart';
@@ -19,6 +21,12 @@ class _MyAppState extends State<MyApp5> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
+  final HttpClient client = HttpClient();
+  String responseText = '';
+  String responseTime = '';
+  String token = '';
+  Map jsonMap = {'username': 'user1', 'password': 'abcxyz'};
+
   List<Profile> userProfile = [];
 
   bool isloading = false;
@@ -71,6 +79,61 @@ class _MyAppState extends State<MyApp5> {
     super.initState();
   }
 
+  Uint8List responseImage;
+
+  void getJwt() {
+    client
+        .postUrl(Uri.parse('https://flutter-jwt-oconsuel.herokuapp.com//auth'))
+        .then((HttpClientRequest request) {
+      request.headers.set('content-type', 'application/json');
+      request.add(utf8.encode(json.encode(jsonMap)));
+      print(request);
+      return request.close();
+    }).then((HttpClientResponse response) {
+      response.listen((event) {
+        String responseString = String.fromCharCodes(event);
+        setState(() {
+          token = json.decode(responseString)['access_token'];
+          print(token);
+        });
+      });
+    });
+  }
+
+  void getResp() {
+    client
+        .getUrl(
+            Uri.parse('https://flutter-jwt-oconsuel.herokuapp.com/protected'))
+        .then((HttpClientRequest request) {
+      request.headers.set('Authorization', 'JWT $token');
+      return request.close();
+    }).then((HttpClientResponse response) {
+      if (response.statusCode != 200) {
+        response.listen((event) {
+          String responseString = String.fromCharCodes(event);
+          setState(() {
+            responseText = responseString;
+          });
+        });
+      } else {
+        String gotResponse = '';
+        response.forEach((element) {
+          gotResponse += String.fromCharCodes(element);
+        }).then((value) {
+          var jsonDecoded = json.decode(gotResponse);
+          String time = DateFormat.yMd()
+              .add_jm()
+              .format(DateTime.fromMicrosecondsSinceEpoch(
+                  jsonDecoded['timestamp'].toInt() * 1000000))
+              .toString();
+          setState(() {
+            responseText = '$time';
+          });
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -85,9 +148,7 @@ class _MyAppState extends State<MyApp5> {
               color: Colors.green,
             ),
           ),
-          
           body: SafeArea(
-            
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -99,7 +160,28 @@ class _MyAppState extends State<MyApp5> {
                     Text(getCurrentTimestamp.toString()),
                   ],
                 ),
-                Text('JWT-Token'),
+                ElevatedButton(
+                  onPressed: getJwt,
+                  child: Text('Получить JWT'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF272727),
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                Text(token, textAlign: TextAlign.left),
+                ElevatedButton(
+                  onPressed: getResp,
+                  child: Text('Получить время сервера'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF272727),
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                Text(responseText),
                 Image.network(
                   'https://firebasestorage.googleapis.com/v0/b/flutterflow-test-4a05f.appspot.com/o/oconsuel_logo.jpg?alt=media&token=5e0c1b19-339f-4fe6-954e-53bdc5181421',
                   width: 100,

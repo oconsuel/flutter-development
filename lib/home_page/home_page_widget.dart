@@ -619,8 +619,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         i = (1) % data.length;
       });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Результат расшифровки файла $decFilepath : ' +
-            File(decFilepath).readAsStringSync()),
+        content: Text('Результат расшифровки файла $decFilepath : '),
+        // File(decFilepath).readAsStringSync()),
         duration: Duration(seconds: 10),
       ));
     } on AesCryptException catch (e) {
