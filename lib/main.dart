@@ -4,6 +4,9 @@ import 'auth/firebase_user_provider.dart';
 import 'package:test_project/main/main_widget.dart';
 import 'package:test_project/home_page/home_page_widget.dart';
 import 'package:firebase_performance/firebase_performance.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+
+final FirebaseAnalytics analytics = FirebaseAnalytics();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

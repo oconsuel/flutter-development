@@ -102,6 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget getContactListWidget(context) {
+    analytics.logEvent(name: "contacts_page");
     return ListView.separated(
       itemBuilder: (context, index) {
         final currentContact = contacts.connections[index];

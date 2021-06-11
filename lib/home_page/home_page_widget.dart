@@ -1,7 +1,6 @@
 // import 'package:test_project/8_lab/8_lab.dart';
 import 'package:test_project/JWT/main.dart';
 import 'package:test_project/chat/chat.dart';
-import 'package:test_project/contacts/contacts.dart';
 import 'package:test_project/contacts/login_screen.dart';
 import 'package:test_project/contacts/main.dart';
 
@@ -16,6 +15,10 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'dart:io';
 import 'package:aes_crypt/aes_crypt.dart';
+
+import 'package:firebase_analytics/firebase_analytics.dart';
+
+final FirebaseAnalytics analytics = FirebaseAnalytics();
 
 class HomePageWidget extends StatefulWidget {
   HomePageWidget({Key key}) : super(key: key);
@@ -43,11 +46,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    int pageIndex = 0;
-    List<Widget> pageList = <Widget>[
-      Lab07(),
-      MyApp2(),
-    ];
+    analytics.logEvent(name: "home_page");
     return Scaffold(
       resizeToAvoidBottomInset: true,
       key: scaffoldKey,
@@ -225,6 +224,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               builder: (context) => MyApp3(),
                                             ),
                                           );
+                                          analytics.logEvent(
+                                              name: "get_contacts");
                                         },
                                         text: 'К контактам',
                                         options: FFButtonOptions(
@@ -543,24 +544,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           ],
         ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: pageIndex,
-      //   onTap: (value) {
-      //     setState(() {
-      //       if(pageIndex = 1)
-      //         pageIndex = value;
-      //     });
-      //   },
-      //   type: BottomNavigationBarType.fixed,
-      //   items: [
-      //     BottomNavigationBarItem(icon: Icon(Icons.messenger), label: "Чат"),
-      //     BottomNavigationBarItem(icon: Icon(Icons.people), label: "Контакты")
-      //   ],
-      // ),
     );
   }
 
   void _shif(context) async {
+    analytics.logEvent(name: "shif_file");
     final params = OpenFileDialogParams();
     final filePath = await FlutterFileDialog.pickFile(params: params);
     print(filePath);
@@ -596,6 +584,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       }
       return;
     }
+  }
+
+  void shifpos() async {
+    analytics.logEvent(name: "shif_page");
   }
 
   void _deshif(context) async {

@@ -4,6 +4,9 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../home_page/home_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+
+final FirebaseAnalytics analytics = FirebaseAnalytics();
 
 class MainWidget extends StatefulWidget {
   MainWidget({Key key}) : super(key: key);
@@ -26,6 +29,7 @@ class _MainWidgetState extends State<MainWidget> {
 
   @override
   Widget build(BuildContext context) {
+    analytics.logEvent(name: "login_page");
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -221,6 +225,9 @@ class _MainWidgetState extends State<MainWidget> {
                                     onPressed: () async {
                                       final user =
                                           await signInWithGoogle(context);
+                                      analytics.logLogin();
+                                      analytics.setUserProperty(
+                                          name: 'rank', value: 'gold');
                                       if (user == null) {
                                         return;
                                       }

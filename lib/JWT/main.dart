@@ -8,6 +8,9 @@ import 'package:test_project/JWT/model.dart';
 import 'package:test_project/flutter_flow/flutter_flow_util.dart';
 // import 'package:firebase_image/firebase_image.dart';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+
+final FirebaseAnalytics analytics = FirebaseAnalytics();
 void main() {
   runApp(MyApp5());
 }
@@ -82,6 +85,7 @@ class _MyAppState extends State<MyApp5> {
   Uint8List responseImage;
 
   void getJwt() {
+    FirebaseAnalytics().logEvent(name: 'get_jwt', parameters: null);
     client
         .postUrl(Uri.parse('https://flutter-jwt-oconsuel.herokuapp.com//auth'))
         .then((HttpClientRequest request) {
@@ -136,6 +140,7 @@ class _MyAppState extends State<MyApp5> {
 
   @override
   Widget build(BuildContext context) {
+    analytics.logEvent(name: 'jwt_page');
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
